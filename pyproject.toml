@@ -1,0 +1,41 @@
+[project]
+name = "textbin"
+version = "0.1.0"
+description = "Simple pastebin"
+authors = [
+    {name = "Gustavo Dias",email = "gustavodiashug9@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi[standard]>=0.136.1",
+    "redis>=7.4.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+    "ruff>=0.15.12",
+    "taskipy>=1.14.1",
+]
+
+[tool.ruff]
+line-length = 79
+
+[tool.ruff.lint]
+preview = true
+select = ['I', 'F', 'E', 'W', 'PL', 'PT']
+
+[tool.ruff.format]
+preview = true
+quote-style = 'single'
+
+[tool.pytest.ini_options]
+pythonpath = "."
+addopts = '-p no:warnings'
+
+[tool.taskipy.tasks]
+lint = 'uv run ruff check'
+format = 'uv run ruff format'
+run_server = 'uv run fastapi dev'
+test = 'pytest -s -x --cov=fastcourse -vv'

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>PasteNoir — view paste</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Manrope:wght@200..800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/styles.css"/>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-fixed": "#400201",
+                        "inverse-on-surface": "#303030",
+                        "primary-container": "#e67e6e",
+                        "on-tertiary-fixed": "#002018",
+                        "tertiary": "#66dab9",
+                        "on-tertiary": "#00382b",
+                        "secondary": "#c6c7c2",
+                        "surface": "#131313",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#ffdad4",
+                        "on-primary-fixed-variant": "#7c2d22",
+                        "surface-dim": "#131313",
+                        "on-secondary-container": "#b8b9b4",
+                        "on-tertiary-container": "#003b2e",
+                        "on-surface-variant": "#dbc1bc",
+                        "outline": "#a38b88",
+                        "tertiary-fixed": "#84f7d4",
+                        "primary-fixed-dim": "#ffb4a8",
+                        "surface-container-low": "#1b1c1c",
+                        "on-primary": "#5e170e",
+                        "secondary-fixed-dim": "#c6c7c2",
+                        "surface-container-lowest": "#0e0e0e",
+                        "error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#005140",
+                        "secondary-container": "#484a46",
+                        "on-primary-container": "#611911",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#66dab9",
+                        "on-background": "#e4e2e1",
+                        "on-secondary": "#2f312e",
+                        "surface-variant": "#353535",
+                        "on-secondary-fixed": "#1a1c19",
+                        "inverse-primary": "#9a4337",
+                        "surface-container-high": "#2a2a2a",
+                        "on-surface": "#e4e2e1",
+                        "primary": "#ffb4a8",
+                        "inverse-surface": "#e4e2e1",
+                        "secondary-fixed": "#e3e3de",
+                        "background": "#131313",
+                        "surface-bright": "#393939",
+                        "on-error": "#690005",
+                        "outline-variant": "#55423f",
+                        "on-secondary-fixed-variant": "#454744",
+                        "surface-tint": "#ffb4a8",
+                        "surface-container-highest": "#353535",
+                        "surface-container": "#1f2020",
+                        "tertiary-container": "#32ae8f"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "container-max": "1200px",
+                        "unit": "8px",
+                        "section-gap": "120px",
+                        "gutter": "32px"
+                    },
+                    fontFamily: {
+                        "headline-lg": ["Newsreader"],
+                        "label-sm": ["Manrope"],
+                        "display": ["Newsreader"],
+                        "headline-md": ["Newsreader"],
+                        "body-lg": ["Manrope"],
+                        "body-md": ["Manrope"]
+                    },
+                    fontSize: {
+                        "headline-lg": ["48px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "label-sm": ["13px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display": ["80px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container">
+
+    <header class="fixed top-0 w-full z-50 bg-neutral-950/80 backdrop-blur-md border-b border-neutral-100/10">
+        <div class="max-w-[1200px] mx-auto px-8 flex justify-between items-center h-20">
+            <div class="flex items-center gap-12">
+                <a class="text-2xl font-semibold italic text-neutral-50 font-newsreader tracking-tight" href="index.html">PasteNoir</a>
+                <nav class="hidden md:flex items-center gap-8 font-newsreader tracking-tight">
+                    <a class="text-neutral-50 border-b border-coral-400 pb-1 hover:text-neutral-50 transition-colors duration-300" href="index.html">Editor</a>
+                    <a class="text-neutral-400 hover:text-neutral-50 transition-colors duration-300" href="#">API</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-32 pb-20 max-w-[1200px] mx-auto px-8">
+
+        <div class="mb-12">
+            <h1 id="content-name" class="font-headline-lg text-headline-lg text-on-surface mb-2">Loading...</h1>
+            <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">
+                Created <span id="created-at">—</span>
+            </p>
+            <p id="error-message" class="hidden mt-4 text-error font-body-md"></p>
+        </div>
+
+        <div class="relative group">
+
+            <div class="absolute top-6 right-6 z-10 flex gap-2 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <button id="copy-btn" class="bg-surface-container-high border border-outline-variant px-4 py-2 flex items-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-all duration-300">
+                    <span class="material-symbols-outlined text-[18px]">content_copy</span>
+                    <span class="label font-label-sm text-label-sm uppercase">Copy all</span>
+                </button>
+                <button id="share-btn" class="bg-surface-container-high border border-outline-variant px-4 py-2 flex items-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-all duration-300">
+                    <span class="material-symbols-outlined text-[18px]">share</span>
+                </button>
+            </div>
+
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden">
+                <div class="flex items-center gap-2 px-6 py-4 bg-surface-container-low border-b border-outline-variant">
+                    <div class="flex gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-outline-variant"></div>
+                        <div class="w-3 h-3 rounded-full bg-outline-variant"></div>
+                        <div class="w-3 h-3 rounded-full bg-outline-variant"></div>
+                    </div>
+                    <span class="ml-4 font-label-sm text-label-sm text-on-surface-variant">paste</span>
+                </div>
+                <div class="p-8 overflow-x-auto">
+                    <pre class="font-mono text-body-md leading-relaxed"><code id="content-body" class="block text-on-surface whitespace-pre-wrap"></code></pre>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="w-full py-20 mt-32 bg-neutral-950 border-t border-neutral-100/10">
+        <div class="max-w-[1200px] mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex flex-col gap-2">
+                <div class="text-lg font-bold text-neutral-50 font-headline-md italic">PasteNoir</div>
+                <div class="font-newsreader text-sm uppercase tracking-widest text-neutral-500">@ <span id="current-year"></span></div>
+            </div>
+            <div class="flex gap-12 font-newsreader text-sm uppercase tracking-widest">
+                <a class="text-neutral-500 hover:text-coral-400 transition-colors" href="#">API</a>
+                <a class="text-neutral-500 hover:text-coral-400 transition-colors" href="#">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/paste.js"></script>
+    <script src="js/modal.js"></script>
+</body>
+</html>
