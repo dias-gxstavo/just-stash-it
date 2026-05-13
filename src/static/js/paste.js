@@ -21,7 +21,7 @@ async function loadPaste() {
     const slug = getSlugFromUrl();
 
     if (!slug) {
-        showErrorModal("Nenhum slug encontrado na URL.");
+        showErrorModal("No slug found in the URL.");
         return;
     }
 
@@ -29,11 +29,11 @@ async function loadPaste() {
         const response = await fetch(`${API_BASE}/p/${slug}`);
 
         if (response.status === 404) {
-            showErrorModal("Paste não encontrado ou já expirou.");
+            showErrorModal("Paste not found or has expired.");
             return;
         }
 
-        if (!response.ok) throw new Error("Erro inesperado.");
+        if (!response.ok) throw new Error("Unexpected error.");
 
         const paste = await response.json();
 
@@ -42,7 +42,7 @@ async function loadPaste() {
         document.getElementById("created-at").textContent   = formatRelativeTime(paste.created_at);
     } catch (err) {
         console.error(err);
-        showErrorModal("Não foi possível carregar o paste.");
+        showErrorModal("The paste could not be loaded.");
     }
 }
 
@@ -51,8 +51,8 @@ async function copyContent() {
     await navigator.clipboard.writeText(content);
 
     const btn = document.getElementById("copy-btn");
-    btn.querySelector("span.label").textContent = "Copiado!";
-    setTimeout(() => (btn.querySelector("span.label").textContent = "Copiar Tudo"), 2000);
+    btn.querySelector("span.label").textContent = "Copied!";
+    setTimeout(() => (btn.querySelector("span.label").textContent = "Copy All"), 2000);
 }
 
 function shareLink() {

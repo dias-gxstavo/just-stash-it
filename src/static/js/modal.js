@@ -79,7 +79,7 @@ function showSuccessModal(url, expires) {
     document.getElementById("modal-paste-url").textContent = url;
     document.getElementById("modal-view-btn").href = url;
     document.getElementById("modal-meta").textContent =
-        `EXPIRANDO EM ${LABEL_MAP[expires] ?? expires}`;
+        `EXPIRING IN ${LABEL_MAP[expires] ?? expires} `;
 
     document.getElementById("pn-modal-error").classList.add("hidden");
     document.getElementById("pn-modal-success").classList.remove("hidden");
