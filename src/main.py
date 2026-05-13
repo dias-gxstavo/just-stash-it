@@ -6,7 +6,7 @@ from http import HTTPStatus
 import redis.asyncio as redis
 from fastapi import FastAPI, HTTPException
 
-from src.schemas import EXPIRATION_MAP, Content
+from src.schemas import EXPIRATION_MAP, Content, Slug
 
 app = FastAPI(title="textbin")
 
@@ -19,7 +19,7 @@ async def create_paste(content: Content):
     payload = {
         "content_name": content.content_name,
         "content_body": content.content_body,
-        "created_at":   datetime.now().isoformat(),
+        "created_at":   content.created_at.isoformat(),
         "expires_in":   content.expires_in.value
     }
 

@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import datetime, timezone, timedelta
 from enum import Enum
 
 from pydantic import BaseModel
@@ -20,4 +20,9 @@ EXPIRATION_MAP = {
 class Content(BaseModel):
     content_name: str
     content_body: str
+    created_at: datetime = datetime.now(timezone.utc)
     expires_in: ExpirationOption
+
+
+class Slug(BaseModel):
+    slug: str
