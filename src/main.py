@@ -8,7 +8,7 @@ from fastapi import FastAPI, HTTPException
 
 from src.schemas import EXPIRATION_MAP, Content, Slug
 
-app = FastAPI(title="textbin")
+app = FastAPI(title="just stash it")
 
 r = redis.Redis(host='redis', port=6379)
 
