@@ -63,6 +63,5 @@ document.addEventListener("DOMContentLoaded", () => {
     loadPaste();
     document.getElementById("copy-btn").addEventListener("click", copyContent);
     document.getElementById("share-btn").addEventListener("click", shareLink);
+    document.getElementById("current-year").textContent = new Date().getFullYear();
 });
-
-document.getElementById('current-year').textContent = new Date().getFullYear();

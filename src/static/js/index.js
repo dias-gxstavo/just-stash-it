@@ -42,6 +42,6 @@ async function createPaste() {
 
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("generate-btn").addEventListener("click", createPaste);
-});
+    document.getElementById('current-year').textContent = new Date().getFullYear();
 
-document.getElementById('current-year').textContent = new Date().getFullYear();
+});
