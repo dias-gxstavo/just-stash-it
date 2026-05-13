@@ -7,4 +7,4 @@ COPY . /app
 WORKDIR /app
 RUN uv sync --frozen --no-cache 
 
-CMD ["/app/.venv/bin/fastapi", "run", "src/main.py", "--reload"]
+CMD ["/app/.venv/bin/fastapi", "run", "src/main.py"]

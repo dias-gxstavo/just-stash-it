@@ -24,6 +24,19 @@ services:
     depends_on:
       - redis
 
+  frontend:
+    container_name: textbin-frontend
+    build:
+      context: .
+      dockerfile: nginx/nginx.Dockerfile
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    networks:
+      - textbin
+    volumes:
+      - ./src/static:/usr/share/nginx/html
+
 networks:
   textbin:
     driver: bridge
