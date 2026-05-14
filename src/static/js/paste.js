@@ -5,18 +5,6 @@ function getSlugFromUrl() {
     return params.get("slug");
 }
 
-function formatRelativeTime(isoString) {
-    const created = new Date(isoString);
-    const diffMs = Date.now() - created.getTime();
-    const diffMin = Math.floor(diffMs / 60000);
-
-    if (diffMin < 1)  return "agora mesmo";
-    if (diffMin < 60) return `${diffMin} min atrás`;
-
-    const diffH = Math.floor(diffMin / 60);
-    return `${diffH}h atrás`;
-}
-
 async function loadPaste() {
     const slug = getSlugFromUrl();
 
@@ -37,9 +25,21 @@ async function loadPaste() {
 
         const paste = await response.json();
 
+        const created_at = new Date(paste.created_at);
+
+        const formated_time = created_at.toLocaleTimeString(navigator.language, {
+            hour: "2-digit",
+            minute: "2-digit",
+        });
+
         document.getElementById("content-name").textContent = paste.content_name;
         document.getElementById("content-body").textContent = paste.content_body;
-        document.getElementById("created-at").textContent   = formatRelativeTime(paste.created_at);
+        document.getElementById("created-at").textContent   = formated_time;
+        document.getElementById("expires-in").textContent   = paste.expires_in;
+
+        const codeEl = document.getElementById("content-body");
+        codeEl.textContent = paste.content_body;
+        hljs.highlightElement(codeEl);
     } catch (err) {
         console.error(err);
         showErrorModal("The paste could not be loaded.");

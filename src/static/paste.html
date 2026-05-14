@@ -8,6 +8,8 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Manrope:wght@200..800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
     <script id="tailwind-config">
         tailwind.config = {
@@ -117,7 +119,7 @@
         <div class="mb-12">
             <h1 id="content-name" class="font-headline-lg text-headline-lg text-on-surface mb-2">Loading...</h1>
             <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">
-                Created <span id="created-at">—</span>
+                Created at <span id="created-at"></span>, Expires in <span id="expires-in"></span>
             </p>
             <p id="error-message" class="hidden mt-4 text-error font-body-md"></p>
         </div>
@@ -144,7 +146,7 @@
                     <span class="ml-4 font-label-sm text-label-sm text-on-surface-variant">paste</span>
                 </div>
                 <div class="p-8 overflow-x-auto">
-                    <pre class="font-mono text-body-md leading-relaxed"><code id="content-body" class="block text-on-surface whitespace-pre-wrap"></code></pre>
+                    <pre class="font-mono text-body-md leading-relaxed"><code id="content-body" class="block text-on-surface"></code></pre>
                 </div>
             </div>
 
