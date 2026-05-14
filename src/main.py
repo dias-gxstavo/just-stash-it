@@ -13,7 +13,7 @@ app = FastAPI(title="just stash it")
 r = redis.Redis(host='redis', port=6379)
 
 
-@app.post("/paste", status_code=HTTPStatus.CREATED)
+@app.post("/api/paste", status_code=HTTPStatus.CREATED, response_model=Slug)
 async def create_paste(content: Content):
     slug = secrets.token_urlsafe(10)
     payload = {
@@ -31,7 +31,7 @@ async def create_paste(content: Content):
     return {"slug": slug}
 
 
-@app.get("/p/{slug}", status_code=HTTPStatus.OK)
+@app.get("/api/{slug}", status_code=HTTPStatus.OK, response_model=Content)
 async def get_paste(slug: str):
     data = await r.get(slug)
     if not data:

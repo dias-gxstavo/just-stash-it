@@ -14,7 +14,7 @@ async function loadPaste() {
     }
 
     try {
-        const response = await fetch(`${API_BASE}/p/${slug}`);
+        const response = await fetch(`${API_BASE}/api/${slug}`);
 
         if (response.status === 404) {
             showErrorModal("Paste not found or has expired.");

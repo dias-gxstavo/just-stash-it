@@ -18,7 +18,7 @@ async function createPaste() {
     }
 
     try {
-        const response = await fetch(`${API_BASE}/paste`, {
+        const response = await fetch(`${API_BASE}/api/paste`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
