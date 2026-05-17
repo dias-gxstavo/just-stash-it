@@ -2,6 +2,7 @@ import json
 import secrets
 from datetime import datetime, timedelta
 from http import HTTPStatus
+from fastapi.middleware.cors import CORSMiddleware
 
 import redis.asyncio as redis
 from fastapi import FastAPI, HTTPException
@@ -12,6 +13,16 @@ app = FastAPI(title="just stash it")
 
 r = redis.Redis(host='redis', port=6379)
 
+origins = [
+    "http://localhost",
+]
+
+app.add_middleware(
+    CORSMiddleware, 
+    allow_origins=origins,
+    allow_methods=["GET", "POST"], 
+    allow_headers=["*"]
+)
 
 @app.post("/api/paste", status_code=HTTPStatus.CREATED, response_model=Slug)
 async def create_paste(content: Content):
