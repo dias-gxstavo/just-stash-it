@@ -2,15 +2,15 @@ version: "3.8"
 
 services:
   redis:
-    container_name: textbin_redis
+    container_name: redis_just_stash
     image: redis:8.4.2-alpine
     restart: unless-stopped
     ports:
       - "6379:6379"
     networks:
-      - textbin
+      - just_stash_it
   api:
-    container_name: textbin_api
+    container_name: api_just_stash
     image: textbin-app:latest
     build: .
     restart: unless-stopped
@@ -20,12 +20,12 @@ services:
       - .:/app
       - /app/.venv
     networks:
-      - textbin
+      - just_stash_it
     depends_on:
       - redis
 
   frontend:
-    container_name: textbin-frontend
+    container_name: frontend_just_stash
     build:
       context: .
       dockerfile: nginx/nginx.Dockerfile
@@ -33,10 +33,10 @@ services:
     ports:
       - "80:80"
     networks:
-      - textbin
+      - just_stash_it
     volumes:
       - ./src/static:/usr/share/nginx/html
 
 networks:
-  textbin:
+  just_stash_it:
     driver: bridge

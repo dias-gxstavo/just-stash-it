@@ -1,5 +1,5 @@
 [project]
-name = "textbin"
+name = "just stash it"
 version = "0.1.0"
 description = "Simple pastebin"
 authors = [
