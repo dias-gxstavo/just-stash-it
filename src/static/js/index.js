@@ -34,10 +34,17 @@ async function createPaste() {
         const pasteUrl = `${window.location.origin}/paste.html?slug=${slug}`;
 
         showSuccessModal(pasteUrl, expiresIn);
+        clearFields();
     } catch (err) {
         console.error(err);
         showErrorModal("The paste could not be created. Please check if the server is running.");
     }
+}
+
+function clearFields() {
+    document.getElementById("content-name").value = "";
+    document.getElementById("content-body").value = "";
+    document.getElementById("expiration").selectedIndex = 0;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
