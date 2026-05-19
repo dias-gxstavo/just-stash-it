@@ -12,7 +12,7 @@ function injectModal() {
                           style="font-variation-settings: 'wght' 200;">check_circle</span>
                     <h1 class="font-headline-lg text-on-surface italic">Generated Link</h1>
                     <p class="font-body-lg text-on-surface-variant max-w-md mx-auto">
-                        Your paste is ready for the 🌍.
+                        Your paste is ready for the 🌍 (for a moment).
                     </p>
                 </div>
 
