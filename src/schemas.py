@@ -1,7 +1,7 @@
 from datetime import datetime, timezone, timedelta
 from enum import Enum
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class ExpirationOption(str, Enum):
@@ -20,7 +20,7 @@ EXPIRATION_MAP = {
 class Content(BaseModel):
     content_name: str
     content_body: str
-    created_at: datetime = datetime.now(timezone.utc)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     expires_in: ExpirationOption
 
 
