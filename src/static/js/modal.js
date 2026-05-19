@@ -10,7 +10,7 @@ function injectModal() {
                 <div class="space-y-4">
                     <span class="material-symbols-outlined text-primary-container text-5xl mb-4"
                           style="font-variation-settings: 'wght' 200;">check_circle</span>
-                    <h1 class="font-headline-lg text-on-surface italic">Generated Link</h1>
+                    <h1 class="font-headline-lg text-headline-md italic">Generated Link</h1>
                     <p class="font-body-lg text-on-surface-variant max-w-md mx-auto">
                         Your paste is ready for the 🌍 (for a moment).
                     </p>
@@ -54,7 +54,7 @@ function injectModal() {
                 <div class="space-y-4">
                     <span class="material-symbols-outlined text-error text-5xl mb-4"
                           style="font-variation-settings: 'wght' 200;">error</span>
-                    <h1 class="font-headline-lg text-on-surface italic">Something went wrong</h1>
+                    <h1 class="font-headline-lg text-headline-md italic">Something went wrong</h1>
                     <p id="modal-error-message"
                        class="font-body-lg text-on-surface-variant max-w-md mx-auto">
                     </p>
