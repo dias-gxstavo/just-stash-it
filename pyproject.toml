@@ -1,5 +1,5 @@
 [project]
-name = "just stash it"
+name = "just_stash_it"
 version = "0.1.0"
 description = "Simple pastebin"
 authors = [
