@@ -1,0 +1,29 @@
+name: Continuous Integration
+on: [push, pull_request]
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          submodules: true
+      
+      - name: Installing Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: 3.14
+
+      - name: Installing uv
+        run: pipx install uv
+      
+      - name: Dependencies
+        run: uv sync
+
+      - name: Linting
+        run: uv run task lint
+
+      - name: Testing
+        run: uv run task test
