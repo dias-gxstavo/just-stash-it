@@ -8,8 +8,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-        with:
-          submodules: true
       
       - name: Installing Python
         uses: actions/setup-python@v6
