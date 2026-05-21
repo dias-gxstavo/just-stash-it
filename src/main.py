@@ -1,11 +1,11 @@
 import json
 import secrets
-from datetime import datetime, timedelta
+from datetime import timedelta
 from http import HTTPStatus
-from fastapi.middleware.cors import CORSMiddleware
 
 import redis.asyncio as redis
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
 from src.schemas import EXPIRATION_MAP, Content, Slug
 
@@ -18,11 +18,12 @@ origins = [
 ]
 
 app.add_middleware(
-    CORSMiddleware, 
+    CORSMiddleware,
     allow_origins=origins,
-    allow_methods=["GET", "POST"], 
+    allow_methods=["GET", "POST"],
     allow_headers=["*"]
 )
+
 
 @app.post("/api/paste", status_code=HTTPStatus.CREATED, response_model=Slug)
 async def create_paste(content: Content):

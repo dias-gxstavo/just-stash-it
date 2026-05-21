@@ -1,7 +1,7 @@
-from http import HTTPStatus
 from datetime import datetime, timezone
+from http import HTTPStatus
+
 import pytest
-import secrets
 
 
 @pytest.mark.asyncio
