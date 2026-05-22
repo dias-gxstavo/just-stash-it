@@ -4,8 +4,10 @@ from datetime import timedelta
 from http import HTTPStatus
 
 import redis.asyncio as redis
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 
 from src.schemas import EXPIRATION_MAP, Content, Slug
 
@@ -23,6 +25,19 @@ app.add_middleware(
     allow_methods=["GET", "POST"],
     allow_headers=["*"]
 )
+
+
+@app.exception_handler(HTTPException)
+async def http_exception_handler(request: Request, exc: HTTPException):
+    if exc.status_code == HTTPStatus.NOT_FOUND:
+        if request.url.path.startswith('/api'):
+            return JSONResponse(
+                status_code=HTTPStatus.NOT_FOUND,
+                content={'detail': 'Not Found'},
+            )
+
+        return FileResponse("src/static/404.html", status_code=404)
+    raise exc
 
 
 @app.post("/api/paste", status_code=HTTPStatus.CREATED, response_model=Slug)
@@ -53,3 +68,10 @@ async def get_paste(slug: str):
         )
 
     return json.loads(data)
+
+
+app.mount(
+    "/",
+    StaticFiles(directory="src/static", html=True),
+    name="static"
+)

@@ -45,3 +45,11 @@ async def test_get_paste_must_return_slug(client):
 
     assert data['content_name'] == 'index.html'
     assert data['content_body'] == '<h1> Testing /get/ endpoint </h1>'
+
+
+@pytest.mark.asyncio
+async def test_must_return_404_html_page(client):
+    response = client.get('/lorem_ipsum')
+
+    assert response.status_code == HTTPStatus.NOT_FOUND
+    assert response.headers['content-type'] == 'text/html; charset=utf-8'
