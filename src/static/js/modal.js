@@ -102,15 +102,15 @@ document.addEventListener("DOMContentLoaded", () => {
     injectModal();
 
     document.getElementById("modal-success-close").addEventListener("click", closeModal);
-    document.getElementById("modal-error-close").addEventListener("click", closeModal);
+    
+    document.getElementById("modal-error-close").addEventListener("click", () => {
+        window.location.href = "/";
+    });
 
     document.getElementById("pn-modal-backdrop").addEventListener("click", (e) => {
         if (e.target === document.getElementById("pn-modal-backdrop")) closeModal();
     });
 
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeModal();
-    });
 
     document.getElementById("modal-copy-btn").addEventListener("click", () => {
         const url = document.getElementById("modal-paste-url").textContent;
