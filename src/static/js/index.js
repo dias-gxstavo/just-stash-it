@@ -1,5 +1,3 @@
-const API_BASE = "http://localhost:8000";
-
 const EXPIRATION_MAP = {
     "5 min":  "5m",
     "10 min": "10m",
@@ -18,7 +16,7 @@ async function createPaste() {
     }
 
     try {
-        const response = await fetch(`${API_BASE}/api/paste`, {
+        const response = await fetch(`${CONFIG.API_BASE}/api/paste`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -50,5 +48,7 @@ function clearFields() {
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("generate-btn").addEventListener("click", createPaste);
     document.getElementById('current-year').textContent = new Date().getFullYear();
-
+    document.querySelectorAll(".docs-link").forEach(el => {
+        el.href = CONFIG.DOCS_URL;
+    });
 });

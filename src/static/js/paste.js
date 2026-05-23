@@ -1,5 +1,3 @@
-const API_BASE = "http://localhost:8000";
-
 function getSlugFromUrl() {
     const params = new URLSearchParams(window.location.search);
     return params.get("slug");
@@ -14,7 +12,7 @@ async function loadPaste() {
     }
 
     try {
-        const response = await fetch(`${API_BASE}/api/${slug}`);
+        const response = await fetch(`${CONFIG.API_BASE}/api/${slug}`);
 
         if (response.status === 404) {
             showErrorModal("Paste not found or has expired.");
@@ -64,4 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("copy-btn").addEventListener("click", copyContent);
     document.getElementById("share-btn").addEventListener("click", shareLink);
     document.getElementById("current-year").textContent = new Date().getFullYear();
+    document.querySelectorAll(".docs-link").forEach(el => {
+        el.href = CONFIG.DOCS_URL;
+    });
 });
