@@ -32,3 +32,5 @@ archive.zip
 .codspeed
 
 node_modules
+
+logs/
