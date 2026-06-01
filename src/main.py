@@ -1,5 +1,7 @@
 import json
+import os
 import secrets
+from contextlib import asynccontextmanager
 from datetime import timedelta
 from http import HTTPStatus
 
@@ -12,7 +14,19 @@ from loguru import logger
 
 from src.schemas import EXPIRATION_MAP, Content, Slug
 
-app = FastAPI(title="just stash it")
+
+def setup_logging():
+    os.makedirs("logs", exist_ok=True)
+    logger.add("logs/app.log", rotation="10 MB", retention=10)
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    setup_logging()
+    yield
+
+
+app = FastAPI(title="just stash it", lifespan=lifespan)
 
 r = redis.Redis(host='redis', port=6379)
 
