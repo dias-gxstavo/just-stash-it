@@ -70,7 +70,7 @@ async def create_paste(content: Content):
     except redis.ConnectionError as err:
         logger.error(f"Redis Connection Error: {err}")
         raise HTTPException(status_code=500, detail="Server Error")
-    
+
     except redis.ResponseError as err:
         logger.error(f"Redis Response Error: {err}")
         raise HTTPException(status_code=500, detail="Server Error")
