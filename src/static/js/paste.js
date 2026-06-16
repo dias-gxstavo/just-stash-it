@@ -16,6 +16,7 @@ async function loadPaste() {
 
         if (response.status === 404) {
             showErrorModal("Paste not found or has expired.");
+            window.location.href = "/404.html";
             return;
         }
 

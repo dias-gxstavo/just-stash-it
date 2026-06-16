@@ -18,12 +18,12 @@
     <header class="fixed top-0 w-full z-50 bg-neutral-950/80 backdrop-blur-md border-b border-neutral-100/10">
         <div class="max-w-[1200px] mx-auto px-8 flex justify-between items-center h-20">
             <div class="text-2xl font-semibold italic text-neutral-50 font-headline-md tracking-tight">
-                <a href="index.html">
+                <a href="/index.html">
                     just stash it
                 </a>
             </div>
             <nav class="hidden md:flex items-center gap-8 font-newsreader tracking-tight">
-                <a class="text-neutral-400 hover:text-neutral-50 transition-colors duration-300" href="http://localhost:8000/docs" target="_blank">API</a>
+                <a class="text-neutral-400 hover:text-neutral-50 transition-colors duration-300 docs-link" href="#" target="_blank">API</a>
                 <a class="text-neutral-50 border-b border-coral-400 pb-1 hover:text-neutral-50 transition-colors duration-300"
                     target="_blank" href="https://github.com/dias-gxstavo/just-stash-it">Source</a>
             </nav>
@@ -48,7 +48,7 @@
                 </p>
                 <div class="flex flex-col sm:flex-row gap-6 justify-center md:justify-start">
                     <a class="bg-primary-container text-on-primary-container font-body-lg font-semibold px-12 py-4 rounded-lg hover:brightness-110 active:opacity-80 transition-all duration-300"
-                        href="index.html">
+                        href="/index.html">
                         Return to Home
                     </a>
 
@@ -79,14 +79,11 @@
                 <div class="font-newsreader text-sm uppercase tracking-widest text-neutral-500">@ <span id="current-year"></span></div>
             </div>
             <div class="flex gap-12 font-newsreader text-sm uppercase tracking-widest">
-                <a class="text-neutral-500 hover:text-coral-400 transition-colors" href="http://localhost:8000/docs" target="_blank">API</a>
-                <a class="text-neutral-500 hover:text-coral-400 transition-colors" href="https://github.com/dias-gxstavo/just-stash-it"target="_blank">GitHub</a>
+                <a class="text-neutral-500 hover:text-coral-400 transition-colors docs-link" href="#" target="_blank">API</a>
+                <a class="text-neutral-500 hover:text-coral-400 transition-colors" href="https://github.com/dias-gxstavo/just-stash-it" target="_blank">GitHub</a>
             </div>
         </div>
     </footer>
-
-    <script>
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-    </script>
+    <script src="/js/config.js"></script>
 </body>
 </html>

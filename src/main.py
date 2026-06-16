@@ -8,7 +8,7 @@ from http import HTTPStatus
 import redis.asyncio as redis
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from loguru import logger
 
@@ -30,7 +30,6 @@ app = FastAPI(title="just stash it", lifespan=lifespan)
 
 r = redis.Redis(host='redis', port=6379)
 
-logger.add("logs/app.log", rotation="10 MB", retention=10)
 
 origins = [
     "http://localhost",
@@ -45,14 +44,8 @@ app.add_middleware(
 
 
 @app.exception_handler(HTTPException)
-async def http_exception_handler(request: Request, exc: HTTPException):
+async def http_exception_handler(exc: HTTPException):
     if exc.status_code == HTTPStatus.NOT_FOUND:
-        if request.url.path.startswith('/api'):
-            return JSONResponse(
-                status_code=HTTPStatus.NOT_FOUND,
-                content={'detail': 'Not Found'},
-            )
-
         return FileResponse("src/static/404.html", status_code=404)
     raise exc
 

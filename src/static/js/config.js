@@ -7,3 +7,10 @@ const CONFIG = {
         return this.API_BASE + "/docs";
     }
 };
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+    document.querySelectorAll(".docs-link").forEach(el => {
+        el.href = CONFIG.DOCS_URL;
+    });
+});
