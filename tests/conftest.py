@@ -11,5 +11,6 @@ from src.main import app
 async def client():
     fake_redis = fakeredis.aioredis.FakeRedis()
 
-    with patch('src.main.r', fake_redis):
+    with patch("src.main.r", fake_redis), \
+         patch("src.main.limiter.enabled", False):
         yield TestClient(app)
