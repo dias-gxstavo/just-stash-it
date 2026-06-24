@@ -11,6 +11,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from loguru import logger
+from slowapi import Limiter, _rate_limit_exceeded_handler  # noqa: PLC2701
+from slowapi.errors import RateLimitExceeded
+from slowapi.util import get_remote_address
 
 from src.schemas import EXPIRATION_MAP, Content, Slug
 
@@ -26,10 +29,15 @@ async def lifespan(app: FastAPI):
     yield
 
 
+limiter = Limiter(
+    key_func=get_remote_address,
+    storage_uri="redis://redis:6379"
+)
+
 app = FastAPI(title="just stash it", lifespan=lifespan)
-
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 r = redis.Redis(host='redis', port=6379)
-
 
 origins = [
     "http://localhost",
@@ -51,7 +59,8 @@ async def http_exception_handler(request: Request, exc: HTTPException):
 
 
 @app.post("/api/paste", status_code=HTTPStatus.CREATED, response_model=Slug)
-async def create_paste(content: Content):
+@limiter.limit("5/minute")
+async def create_paste(request: Request, content: Content):
     try:
         slug = secrets.token_urlsafe(10)
         payload = {

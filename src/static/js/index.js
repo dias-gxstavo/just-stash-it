@@ -26,6 +26,11 @@ async function createPaste() {
             }),
         });
 
+         if (response.status === 429) {
+            showErrorModal("Too many requests. Please wait a moment before trying again.");
+            return;
+        }
+
         if (!response.ok) throw new Error("Error creating the paste.");
 
         const { slug } = await response.json();
