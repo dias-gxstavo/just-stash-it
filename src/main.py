@@ -44,7 +44,7 @@ app.add_middleware(
 
 
 @app.exception_handler(HTTPException)
-async def http_exception_handler(exc: HTTPException):
+async def http_exception_handler(request: Request, exc: HTTPException):
     if exc.status_code == HTTPStatus.NOT_FOUND:
         return FileResponse("src/static/404.html", status_code=404)
     raise exc
