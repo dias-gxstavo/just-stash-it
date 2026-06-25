@@ -18,7 +18,7 @@ from slowapi.util import get_remote_address
 from src.schemas import EXPIRATION_MAP, Content, Slug
 
 REDIS_URL = os.getenv("REDIS_URL", "redis://redis:6379")
-r = redis.Redis(host='redis', port=6379)
+r = redis.from_url(REDIS_URL)
 
 
 def setup_logging():
