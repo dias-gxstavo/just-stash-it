@@ -58,6 +58,11 @@ async def http_exception_handler(request: Request, exc: HTTPException):
     raise exc
 
 
+@app.get("/ping")
+async def ping():
+    return {"ping": "pong"}
+
+
 @app.post("/api/paste", status_code=HTTPStatus.CREATED, response_model=Slug)
 @limiter.limit("5/minute")
 async def create_paste(request: Request, content: Content):
