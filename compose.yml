@@ -1,8 +1,7 @@
 version: "3.8"
 
 services:
-  redis:
-    container_name: redis_just_stash
+  cache:
     image: redis:8.4.2-alpine
     restart: unless-stopped
     ports:
@@ -10,7 +9,6 @@ services:
     networks:
       - just_stash_it
   api:
-    container_name: api_just_stash
     image: textbin-app:latest
     build: .
     restart: unless-stopped
@@ -24,8 +22,7 @@ services:
     depends_on:
       - redis
 
-  frontend:
-    container_name: frontend_just_stash
+  web:
     build:
       context: .
       dockerfile: nginx/nginx.Dockerfile
