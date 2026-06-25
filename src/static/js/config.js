@@ -8,9 +8,13 @@ const CONFIG = {
     }
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById('current-year').textContent = new Date().getFullYear();
+function initPage() {
+    const yearEl = document.getElementById("current-year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
     document.querySelectorAll(".docs-link").forEach(el => {
         el.href = CONFIG.DOCS_URL;
     });
-});
+}
+
+document.addEventListener("DOMContentLoaded", initPage);

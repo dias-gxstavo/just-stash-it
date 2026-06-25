@@ -26,7 +26,7 @@ async function createPaste() {
             }),
         });
 
-         if (response.status === 429) {
+        if (response.status === 429) {
             showErrorModal("Too many requests. Please wait a moment before trying again.");
             return;
         }
@@ -52,8 +52,4 @@ function clearFields() {
 
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("generate-btn").addEventListener("click", createPaste);
-    document.getElementById('current-year').textContent = new Date().getFullYear();
-    document.querySelectorAll(".docs-link").forEach(el => {
-        el.href = CONFIG.DOCS_URL;
-    });
 });
