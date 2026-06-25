@@ -15,7 +15,6 @@ async function loadPaste() {
         const response = await fetch(`${CONFIG.API_BASE}/api/${slug}`);
 
         if (response.status === 404) {
-            showErrorModal("Paste not found or has expired.");
             window.location.href = "/404.html";
             return;
         }
@@ -62,8 +61,4 @@ document.addEventListener("DOMContentLoaded", () => {
     loadPaste();
     document.getElementById("copy-btn").addEventListener("click", copyContent);
     document.getElementById("share-btn").addEventListener("click", shareLink);
-    document.getElementById("current-year").textContent = new Date().getFullYear();
-    document.querySelectorAll(".docs-link").forEach(el => {
-        el.href = CONFIG.DOCS_URL;
-    });
 });
