@@ -8,8 +8,6 @@ function injectModal() {
              class="hidden relative z-10 w-full max-w-2xl mx-4 bg-surface-container border border-outline/10 p-12 md:p-16 editorial-shadow">
             <div class="flex flex-col items-center text-center space-y-8">
                 <div class="space-y-4">
-                    <span class="material-symbols-outlined text-primary-container text-5xl mb-4"
-                          style="font-variation-settings: 'wght' 200;">check_circle</span>
                     <h1 class="font-headline-lg text-headline-md italic">Generated Link</h1>
                     <p class="font-body-lg text-on-surface-variant max-w-md mx-auto">
                         Your paste is ready for the 🌍 (for a moment).
