@@ -41,6 +41,7 @@ r = redis.Redis(host='redis', port=6379)
 
 origins = [
     "http://localhost",
+    "stashingit.online"
 ]
 
 app.add_middleware(
