@@ -17,6 +17,9 @@ from slowapi.util import get_remote_address
 
 from src.schemas import EXPIRATION_MAP, Content, Slug
 
+REDIS_URL = os.getenv("REDIS_URL", "redis://redis:6379")
+r = redis.Redis(host='redis', port=6379)
+
 
 def setup_logging():
     os.makedirs("logs", exist_ok=True)
@@ -31,13 +34,12 @@ async def lifespan(app: FastAPI):
 
 limiter = Limiter(
     key_func=get_remote_address,
-    storage_uri="redis://redis:6379"
+    storage_uri=REDIS_URL
 )
 
 app = FastAPI(title="just stash it", lifespan=lifespan)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
-r = redis.Redis(host='redis', port=6379)
 
 origins = [
     "http://localhost",
