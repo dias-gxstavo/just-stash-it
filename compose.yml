@@ -18,7 +18,7 @@ services:
     networks:
       - just_stash_it
     depends_on:
-      - redis
+      - cache
 
   web:
     build:
