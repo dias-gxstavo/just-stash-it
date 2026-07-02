@@ -116,7 +116,7 @@ async def get_paste(slug: str):
         raise HTTPException(status_code=500, detail="Server Error")
 
 
-@app.get("/api/raw/{slug}", status_code=HTTPStatus.OK, response_class=PlainTextResponse)
+@app.get("/api/raw/{slug}", status_code=HTTPStatus.OK, response_class=PlainTextResponse)  # noqa: E501
 async def get_raw_paste(slug: str):
     try:
         data = await r.get(slug)
