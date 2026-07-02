@@ -8,7 +8,7 @@ from http import HTTPStatus
 import redis.asyncio as redis
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from loguru import logger
 from slowapi import Limiter, _rate_limit_exceeded_handler  # noqa: PLC2701
@@ -111,6 +111,25 @@ async def get_paste(slug: str):
             )
 
         return json.loads(data)
+    except redis.RedisError as err:
+        logger.error(f"Redis operation failed: {err} | slug={slug}")
+        raise HTTPException(status_code=500, detail="Server Error")
+
+
+@app.get("/api/raw/{slug}", status_code=HTTPStatus.OK, response_class=PlainTextResponse)
+async def get_raw_paste(slug: str):
+    try:
+        data = await r.get(slug)
+        if not data:
+            raise HTTPException(
+                status_code=HTTPStatus.NOT_FOUND,
+                detail="Content not found"
+            )
+
+        raw_data = json.loads(data)
+
+        return raw_data["content_body"]
+
     except redis.RedisError as err:
         logger.error(f"Redis operation failed: {err} | slug={slug}")
         raise HTTPException(status_code=500, detail="Server Error")
