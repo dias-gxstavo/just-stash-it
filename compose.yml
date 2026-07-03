@@ -7,7 +7,7 @@ services:
     networks:
       - just_stash_it
   api:
-    image: textbin-app:latest
+    image: just-stash-it-app
     build: .
     restart: unless-stopped
     ports:
