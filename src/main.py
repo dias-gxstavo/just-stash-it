@@ -8,7 +8,7 @@ from http import HTTPStatus
 import redis.asyncio as redis
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, PlainTextResponse
+from fastapi.responses import PlainTextResponse
 from loguru import logger
 from slowapi import Limiter, _rate_limit_exceeded_handler  # noqa: PLC2701
 from slowapi.errors import RateLimitExceeded
@@ -51,13 +51,6 @@ app.add_middleware(
     allow_methods=["GET", "POST"],
     allow_headers=["*"]
 )
-
-
-@app.exception_handler(HTTPException)
-async def http_exception_handler(request: Request, exc: HTTPException):
-    if exc.status_code == HTTPStatus.NOT_FOUND:
-        return FileResponse("src/static/404.html", status_code=404)
-    raise exc
 
 
 @app.get("/ping")
