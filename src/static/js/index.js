@@ -4,7 +4,7 @@ const EXPIRATION_MAP = {
     "1 hour": "1h",
 };
 
-async function createPaste() {
+function createPaste() {
     const contentName = document.getElementById("content-name").value.trim();
     const contentBody = document.getElementById("content-body").value.trim();
     const expirationLabel = document.getElementById("expiration").value;
@@ -15,6 +15,13 @@ async function createPaste() {
         return;
     }
 
+    showWarningModal(
+        "Do not share sensitive information (passwords, personal data, financial details, etc.). Anyone with the link will be able to view this content.",
+        () => submitPaste(contentName, contentBody, expiresIn)
+    );
+}
+
+async function submitPaste(contentName, contentBody, expiresIn) {
     try {
         const response = await fetch(`${CONFIG.API_BASE}/api/paste`, {
             method: "POST",

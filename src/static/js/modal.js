@@ -64,6 +64,29 @@ function injectModal() {
                 </button>
             </div>
         </div>
+        
+         <div id="pn-modal-warning"
+             class="hidden relative z-10 w-full max-w-2xl mx-4 bg-surface-container border border-outline/10 p-12 md:p-16 editorial-shadow">
+            <div class="flex flex-col items-center text-center space-y-8">
+                <div class="space-y-4">
+                    <h1 class="font-headline-lg text-headline-md italic">Wait a moment! </h1>
+                    <p id="modal-warning-message"
+                       class="font-body-lg text-on-surface-variant max-w-md mx-auto">
+                    </p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 w-full">
+                    <button id="modal-warning-cancel"
+                            class="flex-1 border border-on-surface/20 text-on-surface py-5 px-8 font-label-sm uppercase tracking-widest hover:border-on-surface transition-all">
+                        Cancel
+                    </button>
+                    <button id="modal-warning-confirm"
+                            class="flex-1 bg-primary-container text-on-primary-container py-5 px-8 font-label-sm uppercase tracking-widest hover:opacity-90 transition-opacity">
+                        Continue
+                    </button>
+                </div>
+            </div>
+        </div>
 
     </div>`;
 
@@ -80,6 +103,7 @@ function showSuccessModal(url, expires) {
         `EXPIRING IN ${LABEL_MAP[expires] ?? expires} `;
 
     document.getElementById("pn-modal-error").classList.add("hidden");
+    document.getElementById("pn-modal-warning").classList.add("hidden");
     document.getElementById("pn-modal-success").classList.remove("hidden");
     document.getElementById("pn-modal-backdrop").classList.remove("hidden");
 }
@@ -88,12 +112,28 @@ function showErrorModal(message) {
     document.getElementById("modal-error-message").textContent = message;
 
     document.getElementById("pn-modal-success").classList.add("hidden");
+    document.getElementById("pn-modal-warning").classList.add("hidden");
     document.getElementById("pn-modal-error").classList.remove("hidden");
+    document.getElementById("pn-modal-backdrop").classList.remove("hidden");
+}
+
+let _warningConfirmCallback = null;
+
+function showWarningModal(message, onConfirm) {
+    document.getElementById("modal-warning-message").textContent = message;
+    _warningConfirmCallback = typeof onConfirm === "function" ? onConfirm : null;
+
+    document.getElementById("pn-modal-success").classList.add("hidden");
+    document.getElementById("pn-modal-error").classList.add("hidden");
+    document.getElementById("pn-modal-warning").classList.remove("hidden");
     document.getElementById("pn-modal-backdrop").classList.remove("hidden");
 }
 
 function closeModal() {
     document.getElementById("pn-modal-backdrop").classList.add("hidden");
+    document.getElementById("pn-modal-success").classList.add("hidden");
+    document.getElementById("pn-modal-error").classList.add("hidden");
+    document.getElementById("pn-modal-warning").classList.add("hidden");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -103,6 +143,20 @@ document.addEventListener("DOMContentLoaded", () => {
     
     document.getElementById("modal-error-close").addEventListener("click", () => {
         window.location.href = "/";
+    });
+
+    document.getElementById("modal-warning-cancel").addEventListener("click", () => {
+        _warningConfirmCallback = null;
+        closeModal();
+    });
+
+    document.getElementById("modal-warning-confirm").addEventListener("click", () => {
+        closeModal();
+        if (_warningConfirmCallback) {
+            const callback = _warningConfirmCallback;
+            _warningConfirmCallback = null;
+            callback();
+        }
     });
 
     document.getElementById("pn-modal-backdrop").addEventListener("click", (e) => {
