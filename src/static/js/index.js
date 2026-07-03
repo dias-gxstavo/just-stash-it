@@ -41,7 +41,7 @@ async function submitPaste(contentName, contentBody, expiresIn) {
         if (!response.ok) throw new Error("Error creating the paste.");
 
         const { slug } = await response.json();
-        const pasteUrl = `${window.location.origin}/paste.html?slug=${slug}`;
+        const pasteUrl = `${window.location.origin}/paste?slug=${slug}`;
 
         showSuccessModal(pasteUrl, expiresIn);
         clearFields();
