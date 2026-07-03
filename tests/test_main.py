@@ -48,8 +48,21 @@ async def test_get_paste_must_return_slug(client):
 
 
 @pytest.mark.asyncio
-async def test_must_return_404_html_page(client):
-    response = client.get('/lorem_ipsum')
+async def test_get_paste_must_return_raw_content_from_slug(client):
+    created = client.post(
+        '/api/paste',
+        json={
+            'content_name': 'index.html',
+            'content_body': '<h1> Testing /raw/ endpoint </h1>',
+            'created_at': datetime.now(timezone.utc).isoformat(),
+            'expires_in': '5m',
+        },
+    )
 
-    assert response.status_code == HTTPStatus.NOT_FOUND
-    assert response.headers['content-type'] == 'text/html; charset=utf-8'
+    created_data = created.json()
+    slug = created_data['slug']
+    response = client.get(f'/api/raw/{slug}')
+
+    assert response.status_code == HTTPStatus.OK
+    assert response.headers['content-type'] == 'text/plain; charset=utf-8'
+    assert response.text == '<h1> Testing /raw/ endpoint </h1>'
