@@ -44,6 +44,31 @@ async function loadPaste() {
     }
 }
 
+async function getRawContent() {
+    const slug = getSlugFromUrl();
+
+    if (!slug) {
+        showErrorModal("No slug found in the URL.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`${CONFIG.API_BASE}/api/raw/${slug}`, {
+            method: "GET",
+            headers: {"Accept": "text/plain"},
+        });
+
+        if (!response.ok) throw new Error("Error fetching raw paste.");
+
+        window.location.href = `/raw?slug=${slug}`;
+
+    } catch (err) {
+        console.error(err);
+        showErrorModal("The raw paste could not be loaded.");
+    }
+}
+
+
 async function copyContent() {
     const content = document.getElementById("content-body").textContent;
     await navigator.clipboard.writeText(content);
@@ -59,6 +84,7 @@ function shareLink() {
 
 document.addEventListener("DOMContentLoaded", () => {
     loadPaste();
+    document.getElementById("raw-btn").addEventListener("click", getRawContent);
     document.getElementById("copy-btn").addEventListener("click", copyContent);
     document.getElementById("share-btn").addEventListener("click", shareLink);
 });
