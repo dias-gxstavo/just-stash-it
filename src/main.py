@@ -9,6 +9,7 @@ import redis.asyncio as redis
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse
+from fastapi.staticfiles import StaticFiles
 from loguru import logger
 from slowapi import Limiter, _rate_limit_exceeded_handler  # noqa: PLC2701
 from slowapi.errors import RateLimitExceeded
@@ -41,7 +42,6 @@ app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 origins = [
-    "http://localhost",
     "stashingit.online"
 ]
 
@@ -125,3 +125,6 @@ async def get_raw_paste(slug: str):
     except redis.RedisError as err:
         logger.error(f"Redis operation failed: {err} | slug={slug}")
         raise HTTPException(status_code=500, detail="Server Error")
+
+
+app.mount("/", StaticFiles(directory="src/static", html=True), name="static")

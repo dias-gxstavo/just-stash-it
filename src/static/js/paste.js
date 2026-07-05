@@ -60,7 +60,7 @@ async function getRawContent() {
 
         if (!response.ok) throw new Error("Error fetching raw paste.");
 
-        window.location.href = `/raw?slug=${slug}`;
+        window.location.href = `/raw.html?slug=${slug}`;
 
     } catch (err) {
         console.error(err);

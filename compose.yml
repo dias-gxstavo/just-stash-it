@@ -15,22 +15,12 @@ services:
     volumes:
       - .:/app
       - /app/.venv
+      - $PWD:/var/www/html
+      - $PWD/nginx:/etc/nginx/conf.d
     networks:
       - just_stash_it
     depends_on:
       - cache
-
-  web:
-    build:
-      context: .
-      dockerfile: nginx/nginx.Dockerfile
-    restart: unless-stopped
-    ports:
-      - "80:80"
-    networks:
-      - just_stash_it
-    volumes:
-      - ./src/static:/usr/share/nginx/html
 
 networks:
   just_stash_it:
